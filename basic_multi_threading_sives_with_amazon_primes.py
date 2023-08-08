@@ -34,14 +34,14 @@ def is_prime(i):
     return True
 
 
-def thread_sieve(thread_list, max_threads=100):
+def thread_sieve(thread_list, max_threads=1000):
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_threads) as executor:
         futures = [executor.submit(if_sieve, i) for i in thread_list]
         concurrent.futures.wait(futures)
 
 if __name__ == "__main__":
     start_time =  datetime.datetime.now()
-    n = 1000000000 # One billion; Adjust as Accordingly
+    n = 10000000000 # One billion; Adjust as Accordingly
     print("n is one billion; adjust as accordingly", n)
     sieve = [True] * (n + 1)
     sieve[0] = sieve[1] = False 

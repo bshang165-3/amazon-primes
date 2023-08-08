@@ -8,13 +8,13 @@ def sieve_of_eratosthenes(n):
             sieve[i*i: n+1: i] = [False] * len(range(i*i, n+1, i))
     return [x for x in range(n + 1) if sieve[x]]
 start_time =  datetime.datetime.now()
-primes_to_ten_billion = sieve_of_eratosthenes(10000000000)
+primes_to_ten_billion = sieve_of_eratosthenes(1000000000)
 
 print(primes_to_ten_billion)
 
-print(f"There are {len(primes_to_ten_billion)} primes from 0 to 10 billion")
+print(f"There are {len(primes_to_ten_billion)} primes from 0 to 1 billion")
 finish_time =  datetime.datetime.now()
 duration = finish_time - start_time
 print(f"Start Time: {start_time}")
 print(f"Finish Time: {finish_time}")
-print(f"Duration of sieve single is 10B: {duration}")
+print(f"Duration of sieve single is 1B: {duration}")

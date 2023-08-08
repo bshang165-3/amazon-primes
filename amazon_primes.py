@@ -15,12 +15,14 @@ def amazon_primes(primes, n):
 start_time =  datetime.datetime.now()
 
 primes = [2,3,5,7]
-primes = amazon_primes(primes, 1000000)
+primes = amazon_primes(primes, 10000000)
 
 print(primes)
+
+print(f"there are {len(primes)} from 0 to 10M")
 
 finish_time =  datetime.datetime.now()
 duration = finish_time - start_time
 print(f"Start Time: {start_time}")
 print(f"Finish Time: {finish_time}")
-print(f"Duration of Amazon Primes 100M is: {duration}")
+print(f"Duration of Amazon Primes 10M is: {duration}")

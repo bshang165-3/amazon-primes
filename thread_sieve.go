@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"runtime"
+	"sync"
 	"time"
 )
 
@@ -11,12 +13,18 @@ func SieveOfEratosthenes(n int) []int {
 		isPrime[i] = true
 	}
 
+	var wg sync.WaitGroup
 	for p := 2; p*p <= n; p++ {
 		if isPrime[p] {
-			for i := p * p; i <= n; i += p {
-				isPrime[i] = false
-			}
+			wg.Add(1)
+			go func(p int) {
+				defer wg.Done()
+				for i := p * p; i <= n; i += p {
+					isPrime[i] = false
+				}
+			}(p)
 		}
+		wg.Wait()
 	}
 
 	var primes []int
@@ -29,7 +37,9 @@ func SieveOfEratosthenes(n int) []int {
 }
 
 func main() {
-	n := 10000000000000000 // Change this value to find primes up to another number
+	runtime.GOMAXPROCS(runtime.NumCPU()) // Use all available CPU cores
+	//runtime.GOMAXPROCS(1) // Use only one CPU core
+	n := 100000 // Change this value to find primes up to another number
 
 	startTime := time.Now()
 
@@ -39,7 +49,6 @@ func main() {
 
 	duration := endTime.Sub(startTime)
 
-	fmt.Println(primes)
-	fmt.Printf("Number of primes up to %d: %d\n", n, len(primes))
+	fmt.Println("Number of primes:", len(primes))
 	fmt.Printf("Time taken: %v\n", duration)
 }

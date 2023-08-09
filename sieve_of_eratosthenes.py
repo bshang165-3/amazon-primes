@@ -10,7 +10,7 @@ def sieve_of_eratosthenes(n):
 start_time =  datetime.datetime.now()
 primes_to_ten_billion = sieve_of_eratosthenes(1000000000)
 
-print(primes_to_ten_billion)
+#print(primes_to_ten_billion)
 
 print(f"There are {len(primes_to_ten_billion)} primes from 0 to 1 billion")
 finish_time =  datetime.datetime.now()

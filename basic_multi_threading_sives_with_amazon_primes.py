@@ -8,14 +8,19 @@ import sys
 sys.setrecursionlimit(1000000000)
 import time
 
-global_primes = [2]
-n = 1000000000 # One billion; Adjust as Accordingly
-global_sieve = [True] * (n + 1)
-print("n is one billion; adjust as accordingly", n)
-global_sieve = [True] * (n + 1)
-global_sieve[0] = global_sieve[1] = False 
-i = 2
-global_sieve[i*i: n+1: i] = [False] * len(range(i*i, n+1, i))
+global_primes = [2, 3, 5, 7, 11, 13, 17, 19, 23]
+
+def init_sieve(n):
+    global global_sieve
+    global_sieve = [True] * (n + 1)
+    global_sieve[0] = global_sieve[1] = False
+    for i in [2, 3, 5, 7, 11, 13, 17, 19, 23]:
+        print("Marking all multiples of", i, "as non-primes")
+        global_sieve[i*i: n+1: i] = [False] * len(range(i*i, n+1, i))
+
+def change_sieves(i):
+    global global_sieve
+    global_sieve[i*i: n+1: i] = [False] * len(range(i*i, n+1, i))
 
 def add_to_primes(item):
     global global_primes 
@@ -25,11 +30,6 @@ def print_primes():
     global global_primes 
     print("Global Primes:", global_primes)
 
-# def change_to_false(i):
-#     global global_sieve
-#     for i in range(i, len(global_sieve), i):
-#         global_sieve[i] = False
-
 def if_sieve(i):
     k = i
     if global_sieve[i] and is_prime(k):
@@ -37,7 +37,7 @@ def if_sieve(i):
         #print('found prime', i)
         print(f"Marking all multiples of {i} as non-primes")
         # change_to_false(i)
-        global_sieve[i*i: n+1: i] = [False] * len(range(i*i, n+1, i))
+        change_sieves(i)
         # time.sleep(1)
 
 def is_prime(i):
@@ -47,14 +47,16 @@ def is_prime(i):
     return True
 
 
-def thread_sieve(thread_list, max_threads=2):
+def thread_sieve(thread_list, max_threads=100):
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_threads) as executor:
         futures = [executor.submit(if_sieve, i) for i in thread_list]
         concurrent.futures.wait(futures)
 
 if __name__ == "__main__":
     start_time =  datetime.datetime.now()
-    n_list = range(3, int(n**0.5) + 1)
+    n = 1000000000 # One billion; Adjust as Accordingly
+    init_sieve(n)
+    n_list = range(24, int(n**0.5) + 1)
     thread_sieve(n_list)
 
     #print([x for x in range(n + 1) if sieve[x]])

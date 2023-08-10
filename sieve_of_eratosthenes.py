@@ -8,7 +8,7 @@ def sieve_of_eratosthenes(n):
             sieve[i*i: n+1: i] = [False] * len(range(i*i, n+1, i))
     return [x for x in range(n + 1) if sieve[x]]
 start_time =  datetime.datetime.now()
-primes_to_ten_billion = sieve_of_eratosthenes(1000000000)
+primes_to_ten_billion = sieve_of_eratosthenes(2000000000)
 
 #print(primes_to_ten_billion)
 

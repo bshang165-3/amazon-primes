@@ -29,7 +29,7 @@ func SieveOfEratosthenes(n int) []int {
 }
 
 func main() {
-	n := 10000000000000000 // Change this value to find primes up to another number
+	n := 1000000000 // Change this value to find primes up to another number
 
 	startTime := time.Now()
 

@@ -29,7 +29,7 @@ func SieveOfEratosthenes(n int) []int {
 }
 
 func main() {
-	n := 1000000000 // Change this value to find primes up to another number
+	n := 10000000000 // Change this value to find primes up to another number
 
 	startTime := time.Now()
 
@@ -39,7 +39,7 @@ func main() {
 
 	duration := endTime.Sub(startTime)
 
-	fmt.Println(primes)
+	//fmt.Println(primes)
 	fmt.Printf("Number of primes up to %d: %d\n", n, len(primes))
 	fmt.Printf("Time taken: %v\n", duration)
 }
